@@ -1,0 +1,16 @@
+Sub UnmergeAndFill()
+    Dim cell As Range
+    Dim area As Range
+    For Each cell In Selection
+        If cell.MergeCells Then
+            Set area = cell.MergeArea
+            area.UnMerge
+            cell.Value = area.Cells(1, 1).Value
+            For Each c In area
+                If c.Address <> cell.Address Then
+                    c.Value = cell.Value
+                End If
+            Next c
+        End If
+    Next cell
+End Sub
